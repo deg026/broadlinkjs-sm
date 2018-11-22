@@ -11,6 +11,9 @@ Example use
 -----------
 
 Please see test.js for temperature checking and ir learning example.
+
 Please see a1_test.js for A1 device ifo checking.
+
 Please see check.js for check power and turning on/off SP2/SP3 plugs.
+
 Please see mp_check.js for check power and turning on/off MP1 & MP2 device.
