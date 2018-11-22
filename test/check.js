@@ -2,45 +2,57 @@
 let broadlink = require('../../broadlinkjs-sm');
 let fs = require('fs');
 
-var b = new broadlink();
+var brln = new broadlink();
 
-var mcb = function() {
-    var mac = new Buffer(6);
-    var mac_str = "34:ea:34:e4:00:55";
-    var values = mac_str.split(':');
-    for (var i = 0; i < values.length; ++i) {
-        var tmpByte = parseInt(values[i], 16);
-        mac.writeUInt8(tmpByte, i);
-    }
-    return mac;
-}
+brln.discover();
 
-b.discover();
+brln.on("deviceReady", (dev) => {
+    dev.check_power();
 
-b.on("deviceReady", (dev) => {
-    if (mcb().equals(dev.mac) || dev.host.address == "192.168.1.92") {
-        setTimeout(function() {
-            dev.check_power();
-        }, 1000);
+    if(dev.type == "SP3S")
+        dev.check_energy();
+//    console.log(dev.name + ":  " + dev.host.address + " (" + dev.mactxt + ") - FOUND");
 
-        dev.on("power", (pwr) => {
-            console.log("power is on " + pwr);
-            //dev.exit();
-        });
+    dev.on("mp_power", (status_array) => {
+        console.log(dev.name + ":  " + dev.host.address + " (" + dev.mactxt + ")  /  " + dev.type + "  [Status: " +  status_array[0] + " : " + status_array[1] + " : " + status_array[2] + " : " + status_array[3] + " ]");
+    });
 
-        setTimeout(function() {
-            console.log("power ON...");
-            dev.set_power(true);
-            //dev.check_power();
-        }, 2000);
+    dev.on("power", (pwr) => {
+        console.log(dev.name + ":  " + dev.host.address + " (" + dev.mactxt + ")  /  " + dev.type + "  [Status: " + pwr + " ]");
+    });
 
-        setTimeout(function() {
-            console.log("power OFF...");
-            dev.set_power(false);
-            dev.exit();
-        }, 3000);
-    } else {
-        dev.exit();
-    }
+    dev.on("energy", (enrg) => {
+        console.log(dev.name + ":  " + dev.host.address + " (" + dev.mactxt + ")  /  " + dev.type + "  [Power: " + enrg + " w ]");
+    });
 
 });
+
+setTimeout(function() {
+    brln.discover();
+}, 1000);
+
+setTimeout(function() {
+    brln.discover();
+}, 2000);
+
+
+setTimeout(function() {
+    console.log("testing:");
+    for (var d in brln.devices)
+    {
+        if(brln.devices[d])
+            console.log(d + " = " + brln.devices[d].name);
+    }
+}, 6500);
+
+setTimeout(function() {
+    console.log("exiting:");
+    for (var d in brln.devices)
+    {
+        if(brln.devices[d])
+        {
+            console.log(d + " = " + brln.devices[d].name);
+            brln.devices[d].exit();
+        }
+    }
+}, 12000);

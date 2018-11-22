@@ -1,6 +1,6 @@
 {
   "name": "broadlinkjs-sm",
-  "version": "0.1.5",
+  "version": "0.2.6",
   "description": "A Node.JS library for controlling Broadlink SP & MP devices",
   "main": "index.js",
   "types": "index.d.ts",
@@ -9,11 +9,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/smka/broadlinkjs-sm.git"
+    "url": "git+https://github.com/deg026/broadlinkjs-sm.git"
   },
   "keywords": [
     "Broadlink",
     "IoT",
+    "node.js",
     "remote",
     "control",
     "sp"
@@ -21,9 +22,9 @@
   "author": "smka",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/smka/broadlinkjs-sm/issues"
+    "url": "https://github.com/deg026/broadlinkjs-sm/issues"
   },
-  "homepage": "https://github.com/smka/broadlinkjs-sm#readme",
+  "homepage": "https://github.com/deg026/broadlinkjs-sm#readme",
   "dependencies": {
     "@types/node": "^7.0.5"
   },
