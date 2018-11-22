@@ -3,7 +3,8 @@ Node.JS library for controlling Broadlink devices
 
 A Node.JS module for controlling Broadlink devices.
 
-Support devices: A1, SP2, SP2S, SP3, SP3S, MP1, MP2
+Support devices: RM2, A1, SP2, SP2S, SP3, SP3S, MP1, MP2
+
 Have suport for energy consuming requests for SP2S and SP3S devices.
 
 Example use
