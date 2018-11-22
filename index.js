@@ -27,30 +27,24 @@ Broadlink.prototype.genDevice = function(devtype, host, mac, name) {
     if (devtype == 0) { // SP1
         dev = new device(host, mac, name, devtype, mactxt);
         dev.sp1();
-        return dev;
     } else if (devtype == 0x2711) { // SP2
         dev = new device(host, mac, name, devtype, mactxt);
         dev.sp2();
-        return dev;
     } else if (devtype == 0x2719 ||
                devtype == 0x7919 ||
                devtype == 0x271a ||
                devtype == 0x791a) { // Honeywell SP2
         dev = new device(host, mac, name, devtype, mactxt);
         dev.sp2();
-        return dev;
     } else if (devtype == 0x2720) { // SPMini
         dev = new device(host, mac, name, devtype, mactxt);
         dev.sp2();
-        return dev;
     } else if (devtype == 0x753e) { // SP3
         dev = new device(host, mac, name, devtype, mactxt);
         dev.sp2();
-        return dev;
     } else if (devtype == 0x2728) { // SPMini2
         dev = new device(host, mac, name, devtype, mactxt);
         dev.sp2();
-        return dev;
     } else if (devtype == 0x2733 ||
                devtype == 0x273e ||
                devtype == 0x2739 ||
@@ -59,108 +53,85 @@ Broadlink.prototype.genDevice = function(devtype, host, mac, name) {
                devtype == 0x2736) { // OEM branded SPMini Contros
         dev = new device(host, mac, name, devtype, mactxt);
         dev.sp2();
-        return dev;
     } else if (devtype == 0x7530 ||
                devtype == 0x7918 ||
                devtype == 0x7549) { // OEM branded SPMini2
         dev = new device(host, mac, name, devtype, mactxt);
         dev.sp2();
-        return dev;
     } else if (devtype == 0x2736) { // SPMiniPlus
         dev = new device(host, mac, name, devtype, mactxt);
         dev.sp2();
-        return dev;
     } else if (devtype == 0x947c) { // SPMiniPlus2
         dev = new device(host, mac, name, devtype, mactxt);
         dev.sp2();
-        return dev;
     } else if (devtype == 0x7547) { // SC1 WiFi Box
         dev = new device(host, mac, name, devtype, mactxt);
         dev.sp2();
-        return dev;
     } else if (devtype == 0x947a ||
                devtype == 0x9479) { // SP3S
         dev = new device(host, mac, name, devtype, mactxt);
         dev.sp3s();
-        return dev;
     }
     /*else if (devtype == 0x2710) { // RM1
            dev = new device(host, mac, name, devtype, mactxt);
            dev.rm();
-           return dev;
        } else if (devtype == 0x2712) { // RM2
            dev = new device(host, mac, name, devtype, mactxt);
            dev.rm();
-           return dev;
        } else if (devtype == 0x2737) { // RM Mini
            dev = new device(host, mac, name, devtype, mactxt);
            dev.rm();
-           return dev;
        } else if (devtype == 0x27a2) { // RM Mini R2
            dev = new device(host, mac, name, devtype, mactxt);
            dev.rm();
-           return dev;
        } else if (devtype == 0x273d) { // RM Pro Phicomm
            dev = new device(host, mac, name, devtype, mactxt);
            dev.rm();
-           return dev;
        } else if (devtype == 0x2783) { // RM2 Home Plus
            dev = new device(host, mac, name, devtype, mactxt);
            dev.rm();
-           return dev;
        } else if (devtype == 0x277c) { // RM2 Home Plus GDT
            dev = new device(host, mac, name, devtype, mactxt);
            dev.rm();
-           return dev;
        } else if (devtype == 0x272a) { // RM2 Pro Plus
            dev = new device(host, mac, name, devtype, mactxt);
            dev.rm();
-           return dev;
        } else if (devtype == 0x2787) { // RM2 Pro Plus2
            dev = new device(host, mac, name, devtype, mactxt);
            dev.rm();
-           return dev;
        } else if (devtype == 0x279d) { // RM2 Pro Plus3
            dev = new device(host, mac, name, devtype, mactxt);
            dev.rm();
-           return dev;
        } else if (devtype == 0x2797) { // RM2 Pro Plus HYC
            dev = new device(host, mac, name, devtype, mactxt);
            dev.rm();
-           return dev;
        } else if (devtype == 0x278b) { // RM2 Pro Plus BL
            dev = new device(host, mac, name, devtype, mactxt);
            dev.rm();
-           return dev;
        } else if (devtype == 0x27a1) { // RM2 Pro Plus R1
            dev = new device(host, mac, name, devtype, mactxt);
            dev.rm();
-           return dev;
        } else if (devtype == 0x278f) { // RM Mini Shate
            dev = new device(host, mac, name, devtype, mactxt);
            dev.rm();
-           return dev;
        } */
     else if (devtype == 0x2714 ||
              devtype == 0x27a3) { // A1
         dev = new device(host, mac, name, devtype, mactxt);
         dev.a1();
-        return dev;
     } else if (devtype == 0x4EB5) { // MP1
         dev = new device(host, mac, name, devtype, mactxt);
         dev.mp1();
-        return dev;
     } else if (devtype == 0x4F1B ||
                devtype == 0x7540) { // MP2
         dev = new device(host, mac, name, devtype, mactxt);
         dev.mp2();
-        return dev;
-    } else {
+    }
+    else {
         console.log("unknown device found... dev_type: " + devtype.toString(16) + " @ " + host.address);
-        //dev = new device(host, mac, name, devtype, mactxt);
-        //dev.device();
         return null;
     }
+    return dev;
 }
 
 Broadlink.prototype.discover = function(local_ip_address) {
@@ -191,8 +162,6 @@ Broadlink.prototype.discover = function(local_ip_address) {
         var timezone = now.getTimezoneOffset() / -3600;
         var packet = Buffer.alloc(0x30, 0);
 
-        var year = now.getYear();
-
         if (timezone < 0) {
             packet[0x08] = 0xff + timezone - 1;
             packet[0x09] = 0xff;
@@ -204,6 +173,7 @@ Broadlink.prototype.discover = function(local_ip_address) {
             packet[0x0a] = 0;
             packet[0x0b] = 0;
         }
+        var year = now.getYear();
         packet[0x0c] = year & 0xff;
         packet[0x0d] = year >> 8;
         packet[0x0e] = now.getMinutes();
@@ -234,7 +204,7 @@ Broadlink.prototype.discover = function(local_ip_address) {
 
     });
 
-    cs.on("message", (msg, rinfo) => {
+    cs.on('message', (msg, rinfo) => {
         var host = rinfo;
         var mac = Buffer.alloc(6, 0);
         msg.copy(mac, 0x00, 0x3F);
@@ -262,7 +232,7 @@ Broadlink.prototype.discover = function(local_ip_address) {
             var dev = this.genDevice(devtype, host, mac, name);
             if (dev) {
                 this.devices[this.getMACtxt(mac)] = dev;
-                dev.on("deviceReady", () => { this.emit("deviceReady", dev); });
+                dev.on('deviceReady', () => { this.emit('deviceReady', dev); });
                 dev.auth();
             }
         }
@@ -276,7 +246,7 @@ Broadlink.prototype.discover = function(local_ip_address) {
 
     setTimeout(function() {
         cs.close();
-    }, 1000);
+    }, 800);
 }
 
 function device(host, mac, name, devtype, mactxt, timeout = 10) {
@@ -340,9 +310,9 @@ device.prototype.connect = function() {
 
             this.authorized = (Date.now() / 1000);
 
-            self.emit("deviceReady");
+            self.emit('deviceReady');
         } else if (command == 0xee) {
-            self.emit("payload", err, payload);
+            self.emit('payload', err, payload);
         }
         else {
             console.log('message');
@@ -499,7 +469,7 @@ device.prototype.mp1 = function() {
         this.sendPacket(0x6a, packet);
     }
 
-    this.on("payload", (err, payload) => {
+    this.on('payload', (err, payload) => {
         var param = payload[0];
         switch (param) {
             case 1:
@@ -519,7 +489,7 @@ device.prototype.mp1 = function() {
                 var s2 = Boolean(payload[0x0e] & 0x02);
                 var s3 = Boolean(payload[0x0e] & 0x04);
                 var s4 = Boolean(payload[0x0e] & 0x08);
-                this.emit("mp_power", [s1, s2, s3, s4]);
+                this.emit('mp_power', [s1, s2, s3, s4]);
                 break;
             default:
                 console.log("case default - " + param);
@@ -565,7 +535,7 @@ device.prototype.mp2 = function() {
         this.sendPacket(0x6a, packet);
     }
 
-    this.on("payload", (err, payload) => {
+    this.on('payload', (err, payload) => {
         var param = payload[0];
         switch (param) {
             case 1:
@@ -585,7 +555,7 @@ device.prototype.mp2 = function() {
                 var s2 = Boolean(payload[0x0e] & 0x02);
                 var s3 = Boolean(payload[0x0e] & 0x04);
                 var s4 = Boolean(payload[0x0e] & 0x08);
-                this.emit("mp_power", [s1, s2, s3, s4]);
+                this.emit('mp_power', [s1, s2, s3, s4]);
                 break;
             default:
                 console.log("case default - " + param);
@@ -620,7 +590,7 @@ device.prototype.sp2 = function() {
     this.check_power = function() {
         //"""Returns the power state of the smart plug."""
         var packet = Buffer.alloc(16, 0);
-        packet[0] = 0x01;
+        packet[0] = 1;
         this.sendPacket(0x6a, packet);
 
     }
@@ -636,12 +606,12 @@ device.prototype.sp2 = function() {
         this.sendPacket(0x6a, packet);
     }
 
-    this.on("payload", (err, payload) => {
+    this.on('payload', (err, payload) => {
         var param = payload[0];
         switch (param) {
             case 1: //get from check_power
                 var pwr = Boolean(payload[0x4]);
-                this.emit("power", pwr);
+                this.emit('power', pwr);
                 break;
             case 3:
                 console.log('case 3');
@@ -727,12 +697,12 @@ device.prototype.a1 = function() {
         return  {temperature: temperature, light: light, air_quality: air_quality,  noise: noise};
     }
     
-    this.on("payload", (err, payload) => {
+    this.on('payload', (err, payload) => {
 
         var info= this.decode_payload(payload);
 
-        this.emit("temperature", info.temperature);
-        this.emit("humidity", info.humidity);
+        this.emit('temperature', info.temperature);
+        this.emit('humidity', info.humidity);
 
         if (this.raw) {
             switch (info.light) {
@@ -786,11 +756,11 @@ device.prototype.a1 = function() {
             }
 
         }
-        this.emit("light", info.light);
-        this.emit("air_quality", info.air_quality);
+        this.emit('light', info.light);
+        this.emit('air_quality', info.air_quality);
 
-        this.emit("noise", info.noise);
-        this.emit("all_info", info)
+        this.emit('noise', info.noise);
+        this.emit('all_info', info)
     });
 
     this.check_sensors_raw = function() {
@@ -828,21 +798,119 @@ device.prototype.rm = function() {
         this.sendPacket(0x6a, packet);
     }
 
-    this.on("payload", (err, payload) => {
+    this.decodePayload = function(payload) {
+        let signalType = payload[0x4].toString(16);
+        switch (payload[0x4]) {
+            case 0x26:
+                signalType = 'ir';
+                break;
+            case 0xb2:
+                signalType = 'ook433';
+                break;
+            case 0xd7:
+                signalType = 'ook315';
+                break;
+            default:
+                signalType = payload[0x4].toString(16);
+                break;
+        }
+        let repeat = payload[0x5];
+        let pulseSpaceCount = payload[0x6] | payload[0x7] << 8;
+        let psc = (pulseSpaceCount + 8 < payload.length) ? pulseSpaceCount + 8 : payload.length;
+        let psValue = [];
+        let psCount = [];
+        let nPulseSpace = 0;
+        for (let i = 8; i < psc; i++) {
+            let ps = payload[i];
+            if (ps === 0) {  // 0 then big endian 2 bytes
+                ps = (payload[i + 1] << 8) | payload[i + 2];
+                i += 2;
+            }
+            let j = psValue.indexOf(ps);
+            if (j === -1) {
+                //pulseSpace.push(ps); // ms decode
+                psValue[nPulseSpace] = ps + 0;
+                psCount[nPulseSpace] = 1;
+                nPulseSpace++;
+            }
+            else {
+                psCount[j] += 1;
+            }
+        }
+        let pulseSpace = [];
+        for (let i = 0; i < psValue.length; i++) {
+            pulseSpace[i] = {ps: psValue[i], count: psCount[i], ms: Math.round(psValue[i] * 8192 / 269)};
+        }
+
+        pulseSpace.sort((a,b) => a.ps - b.ps);
+
+        let index = 0;
+        let psv = psValue[0];
+        let psct = 0;
+        let i = 0;
+        let minGap = (psv < 10) ? 1 : (psv < 100) ? 3 : (psv < 1000) ? 10 : 100;
+        let ticks = [];
+        let ms = [];
+        let counts = [];
+        for (; i < pulseSpace.length; i++) {
+            if (pulseSpace[i].ps > psv + minGap) {
+                pulseSpace[i-1].totalCount = psct;
+                ticks.push(pulseSpace[i-1].ps);
+                ms.push(pulseSpace[i-1].ms);
+                counts.push(pulseSpace[i-1].totalCount);
+                index++;
+                psct = pulseSpace[i].count;
+                psv = pulseSpace[i].ps;
+                minGap = (psv < 10) ? 1 : (psv < 100) ? 3 : (psv < 1000) ? 10 : 100;
+            }
+            else {
+                psct += pulseSpace[i].count;
+                psv = pulseSpace[i].ps;
+            }
+            pulseSpace[i] = {ps: pulseSpace[i].ps, count: pulseSpace[i].count, ms: pulseSpace[i].ms, index: index};
+        }
+        pulseSpace[i-1].totalCount = psct;
+        ticks.push(pulseSpace[i-1].ps);
+        ms.push(pulseSpace[i-1].ms);
+        counts.push(pulseSpace[i-1].totalCount);
+
+        // todo: sort unique values and index them psi
+        let pulseSpace2 = '';
+        for (let i = 8; i < psc; i++) {
+            let ps = payload[i];
+            if (ps === 0) { // 0 then big endian 2 bytes
+                ps = (payload[i + 1] << 8) | payload[i + 2];
+                i += 2;
+            }
+            let psi = pulseSpace.find((a) => a.ps === ps);
+            pulseSpace2 = pulseSpace2 + psi.index.toString(16);
+        }
+        return  {signalType: signalType, repeat: repeat, count: pulseSpaceCount,
+            ticks: ticks,
+            counts: counts,
+            ms: ms,
+            psi: pulseSpace2};
+    }
+
+    this.on('payload', (err, payload) => {
         var param = payload[0];
         switch (param) {
             case 1:
                 var temp = (payload[0x4] * 10 + payload[0x5]) / 10.0;
-                this.emit("temperature", temp);
+                this.emit('temperature', temp);
                 break;
             case 4: //get from check_data
+                /*
                 var data = Buffer.alloc(payload.length - 4, 0);
                 payload.copy(data, 0, 4);
-                this.emit("rawData", data);
+                */
+                var data = this.decodePayload(payload);
+
+                this.emit('rawData', data);
                 break;
             case 3:
                 break;
-            case 4:
+            default:
                 break;
         }
     });
